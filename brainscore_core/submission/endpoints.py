@@ -111,8 +111,13 @@ class RunScoringEndpoint:
         logger.info(f"Models: {models}")
         logger.info(f"Benchmarks: {benchmarks}")
 
+        print(f"Models: {models}")
+        print(f"Benchmarks: {benchmarks}")
+
         for model_identifier in models:
+            print(model_identifier)
             for benchmark_identifier in benchmarks:
+                print(benchmark_identifier)
                 logger.debug(f"Scoring {model_identifier} on {benchmark_identifier}")
                 # TODO: I am worried about reloading models inside the loop. E.g. a keras model where layer names are
                 #  automatic and will be consecutive from previous layers
