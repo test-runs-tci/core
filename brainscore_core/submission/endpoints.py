@@ -99,6 +99,7 @@ class RunScoringEndpoint:
             :attr:`~brainscore_core.submission.endpoints.RunScoringEndpoint.ALL_PUBLIC` to select all public benchmarks
         """
         # setup entry for this entire submission
+        print(domain, jenkins_id, models, benchmarks, user_id, model_type, public, competition)
         submission_entry = submissionentry_from_meta(jenkins_id=jenkins_id, user_id=user_id, model_type=model_type)
         entire_submission_successful = True
 
@@ -106,18 +107,17 @@ class RunScoringEndpoint:
         if models == self.ALL_PUBLIC:
             models = public_model_identifiers(domain)
         if benchmarks == self.ALL_PUBLIC:
+            print(f'public: {benchmarks}')
             benchmarks = public_benchmark_identifiers(domain)
+        else:
+            print(f'not public: {benchmarks}\n')
+            print(self.ALL_PUBLIC)
 
         logger.info(f"Models: {models}")
         logger.info(f"Benchmarks: {benchmarks}")
 
-        print(f"Models: {models}")
-        print(f"Benchmarks: {benchmarks}")
-
         for model_identifier in models:
-            print(model_identifier)
             for benchmark_identifier in benchmarks:
-                print(benchmark_identifier)
                 logger.debug(f"Scoring {model_identifier} on {benchmark_identifier}")
                 # TODO: I am worried about reloading models inside the loop. E.g. a keras model where layer names are
                 #  automatic and will be consecutive from previous layers
