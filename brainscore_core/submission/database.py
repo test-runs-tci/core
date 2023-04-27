@@ -60,8 +60,10 @@ def email_from_uid(user_id: int) -> Union[None, str]:
 
 def submissionentry_from_meta(jenkins_id: int, user_id: int, model_type: str) -> Submission:
     now = datetime.now()
+    print(now)
     submission = Submission.create(jenkins_id=jenkins_id, submitter=user_id, model_type=model_type,
                                    timestamp=now, status='running')
+    print(submission)
     return submission
 
 
